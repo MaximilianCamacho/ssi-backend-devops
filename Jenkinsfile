@@ -9,12 +9,27 @@ pipeline{
             }
             
         }
+        // stage("Build"){
+        //     agent{
+        //         docker 'maven:3.6.1-jdk-8-slim'
+        //     }
+        //     steps{
+        //         sh "mvn -q clean package"
+        //     }
+        // }
         stage("Build"){
-            agent{
-                docker 'maven:3.6.1-jdk-8-slim'
-            }
+        
+            agent{ label 'master' }      
             steps{
-                sh "mvn -q clean package"
+                script{
+                    def customerImage = docker ('maven:3.6.1-jdk-8-slim')
+                    customerImage.inside{
+                        sh 'java --version'
+                        sh 'mvn --version'
+                    }
+                     sh "mvn -q clean package"                     
+                }
+                
             }
         }
         stage("Package"){
