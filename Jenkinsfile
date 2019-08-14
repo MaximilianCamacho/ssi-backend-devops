@@ -22,7 +22,7 @@ pipeline{
             agent{ label 'master' }      
             steps{
                 script{
-                    def customerImage = docker ('maven:3.6.1-jdk-8-slim')
+                    def customerImage = docker ("maven:3.6.1-jdk-8-slim")
                     customerImage.inside{
                         sh 'java --version'
                         sh 'mvn --version'
