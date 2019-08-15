@@ -1,9 +1,9 @@
 pipeline{
-    agent none
+    agent any
     stages{
         stage("Clone Repository"){
             agent { label 'master' }
-            steps{
+            steps{               
                 git 'https://github.com/MaximilianCamacho/ssi-backend-devops.git'
                 echo " Cloned!"
             }
