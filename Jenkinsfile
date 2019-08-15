@@ -3,20 +3,14 @@ pipeline{
     stages{
         stage("Clone Repository"){
             agent { label 'master' }
-            steps{               
+            steps{   
+                sh "rm -rf ssi-backend-devops"            
                 git 'https://github.com/MaximilianCamacho/ssi-backend-devops.git'
                 echo " Cloned!"
             }
             
         }
-        // stage("Build"){
-        //     agent{
-        //         docker 'maven:3.6.1-jdk-8-slim'
-        //     }
-        //     steps{
-        //         sh "mvn -q clean package"
-        //     }
-        // }
+       
         stage("Build"){
         
             agent{ label 'master' }      
@@ -55,14 +49,6 @@ pipeline{
             }
         }
         
-        // stage("Deployment PROD"){
-        //     agent{label 'PROD'}
-        //     steps{
-        //          unstash "stash-artifact"
-        //          sh "docker load -i blog.tar"
-        //          sh "docker rm blog -f || true"
-        //          sh "docker run -d -p 8090:8090 --name blog mauricio/blog"
-        //     }
-        // }
+
     }
 }
